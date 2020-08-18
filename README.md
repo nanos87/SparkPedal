@@ -1,4 +1,5 @@
 # SparkPedal
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/App/Android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png "logo")
 
 Project to create a simple footswitch for positive grids' spark amplifier.
 Influenced by https://github.com/jrnelson90/tinderboxpedal
@@ -16,7 +17,7 @@ Influenced by https://github.com/jrnelson90/tinderboxpedal
 
 ## Arduino nano
 Different types of micro controllers will work.
-At least they should support this great USB serial lib https://github.com/felHR85/UsbSerial
+At least they should be supported by this USB serial library: https://github.com/felHR85/UsbSerial
 
 ### Schematic
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Arduino/SparkPedal_Schematic.png "schematic")
@@ -29,7 +30,7 @@ At least they should support this great USB serial lib https://github.com/felHR8
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/Pedalboard.png "draft")
 
 
-## Android App
+## Android App 
 ### Dependencies
 https://github.com/felHR85/UsbSerial
 
