@@ -22,7 +22,10 @@ At least they should support this great USB serial lib https://github.com/felHR8
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Arduino/SparkPedal_Schematic.png "schematic")
 
 ### Pedalboard
-![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_top1.png "pedalboard top")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_top1.jpg "pedalboard top")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_back.jpg "pedalboard back")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_left.jpg "pedalboard left")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_right.jpg "pedalboard right")
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/Pedalboard.png "draft")
 
 
