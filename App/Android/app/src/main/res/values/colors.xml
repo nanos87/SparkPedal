@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#BBBBBB</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBackground">#050505</color>
+    <color name="colorTitle">#fe1111</color>
+    <color name="colorLedOn">#fe1111</color>
+    <color name="colorLedOff">#99999999</color>
+    <color name="colorLedBorder">#666666</color>
+    <color name="buttonBorder">#000000</color>
+    <color name="buttonFill">#d4af37</color>
+    <color name="buttonFill2">#dd361d03</color>
+    <color name="buttonFill3">#ddbec2cb</color>
+    <color name="connectedGreen">#197419</color>
+    <color name="disconnectedRed">#fe1111</color>
+</resources>

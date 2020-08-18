@@ -1,0 +1,33 @@
+<resources>
+    <!--Global-->
+    <string name="app_name">SparkPedal</string>
+    <!--Connect-->
+    <string name="connect_title">SparkPedal Connect</string>
+    <string name="connect_bluetooth_title">Spark-Bluetooth</string>
+    <string name="connect_bluetooth_refresh">Refresh List</string>
+    <string name="connect_usb_title">Pedal-USB</string>
+    <string name="connect_usb_refresh">Refresh USB</string>
+    <string name="connect_connect">Rock on</string>
+
+    <!--Control-->
+    <string name="control_title">SparkPedal Control</string>
+    <string name="control_channel_1">Channel 1</string>
+    <string name="control_channel_2">Channel 2</string>
+    <string name="control_channel_3">Channel 3</string>
+    <string name="control_channel_4">Channel 4</string>
+    <string name="control_go_back">Go back</string>
+    <string name="control_go_to">Open SparkApp</string>
+
+    <!--Settings-->
+    <string name="settings_title">Settings</string>
+    <string name="settings_usb_title">USB configuration</string>
+    <string name="settings_baud_rate">baud rate</string>
+    <string name="settings_data_bits">data bits</string>
+    <string name="settings_parity">parity</string>
+    <string name="settings_stop_bits">stop bits</string>
+    <string name="settings_flow_control">flow control</string>
+    <string name="settings_startup_title">Start-Up</string>
+    <string name="settings_auto_connect_title">try auto-connect</string>
+    <string name="settings_go_back">Go back</string>
+
+</resources>
