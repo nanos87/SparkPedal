@@ -23,10 +23,12 @@ At least they should be supported by this USB serial library: https://github.com
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Arduino/SparkPedal_Schematic.png "schematic")
 
 ### Pedalboard
-![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_top1.jpg "pedalboard top")
-![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_back.jpg "pedalboard back")
-![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_left.jpg "pedalboard left")
-![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_right.jpg "pedalboard right")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_front.png "pedalboard front")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_back.png "pedalboard back")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_left.png "pedalboard left")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_right.png "pedalboard right")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_front_led.png "pedalboard led")
+![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/pb_front_1.png "pedalboard top")
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/Pedalboard/Pedalboard.png "draft")
 
 
