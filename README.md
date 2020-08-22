@@ -3,8 +3,8 @@
 
 Project to create a simple footswitch for positive grids' spark amplifier.
 
-Demo (functional): https://youtu.be/c4bS8wjsf9A
-Demo (song): https://youtu.be/IBmtbeGdhAU
+- Demo (functional): https://youtu.be/c4bS8wjsf9A
+- Demo (song): https://youtu.be/IBmtbeGdhAU
 
 ## Used components:
 ### Hardware:
