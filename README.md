@@ -2,7 +2,9 @@
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/App/Android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png "logo")
 
 Project to create a simple footswitch for positive grids' spark amplifier.
-Influenced by https://github.com/jrnelson90/tinderboxpedal
+
+Demo (functional): https://youtu.be/c4bS8wjsf9A
+Demo (song): https://youtu.be/IBmtbeGdhAU
 
 ## Used components:
 ### Hardware:
@@ -44,3 +46,6 @@ https://github.com/felHR85/UsbSerial
 
 ### Settings Activity
 ![alt text](https://github.com/nanos87/SparkPedal/blob/master/App/Drafts/app_setting.png "setting")
+
+
+This project is inspired by https://github.com/jrnelson90/tinderboxpedal
