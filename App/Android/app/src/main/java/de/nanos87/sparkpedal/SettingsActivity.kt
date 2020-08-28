@@ -29,6 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         val flowControl = sharedPref.getString(R.id.cb_flow_control.toString(), "off")
 
         val autoConnect = sharedPref.getBoolean(R.id.ckb_auto_connect.toString(), true)
+        val pipMode = sharedPref.getBoolean(R.id.ckb_pip.toString(), true)
 
         val changeSpinnerSettings = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -104,6 +105,15 @@ class SettingsActivity : AppCompatActivity() {
                 commit()
             }
             Toast.makeText(mContext, "AutoConnect: " + if (ckb_auto_connect.isChecked) "On" else "Off", Toast.LENGTH_SHORT).show()
+        }
+
+        ckb_pip.isChecked = pipMode
+        ckb_pip.setOnClickListener {
+            with (sharedPref.edit()) {
+                putBoolean(R.id.ckb_pip.toString(), ckb_pip.isChecked)
+                commit()
+            }
+            Toast.makeText(mContext, "PictureInPicture-Mode: " + if (ckb_pip.isChecked) "On" else "Off", Toast.LENGTH_SHORT).show()
         }
 
         settings_go_back.setOnClickListener {

@@ -15,6 +15,10 @@
     <string name="control_channel_2">Channel 2</string>
     <string name="control_channel_3">Channel 3</string>
     <string name="control_channel_4">Channel 4</string>
+    <string name="control_channel_1_pip">Ch1</string>
+    <string name="control_channel_2_pip">Ch2</string>
+    <string name="control_channel_3_pip">Ch3</string>
+    <string name="control_channel_4_pip">Ch4</string>
     <string name="control_go_back">Go back</string>
     <string name="control_go_to">Open SparkApp</string>
 
@@ -26,8 +30,10 @@
     <string name="settings_parity">parity</string>
     <string name="settings_stop_bits">stop bits</string>
     <string name="settings_flow_control">flow control</string>
-    <string name="settings_startup_title">Start-Up</string>
+    <string name="settings_startup_title">General</string>
     <string name="settings_auto_connect_title">try auto-connect</string>
+    <string name="settings_pip_title">pictureInPicture mode</string>
     <string name="settings_go_back">Go back</string>
+
 
 </resources>
