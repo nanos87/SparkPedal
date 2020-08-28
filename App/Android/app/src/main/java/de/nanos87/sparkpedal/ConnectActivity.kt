@@ -1,17 +1,22 @@
 package de.nanos87.sparkpedal
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.graphics.Color
 import android.os.*
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import kotlinx.android.synthetic.main.connect_layout.*
-import java.lang.Exception
+
 
 class ConnectActivity : AppCompatActivity() {
     //general
@@ -22,7 +27,7 @@ class ConnectActivity : AppCompatActivity() {
     private val SETTING_BT_DEFAULT = "de.nanos87.sparkpedal.bt_default_device"
     private lateinit var mSharedPref:SharedPreferences
     companion object {
-        lateinit var BT_DEVICE: BluetoothDevice
+        var BT_DEVICE: BluetoothDevice? = null
         var usbService: UsbService? = null
         var btService: BtService? = null
         var mBtState: Int = -1
@@ -36,37 +41,54 @@ class ConnectActivity : AppCompatActivity() {
             var btBackgroundColor:Int = -1
 
             when (msg.what) {
-                UsbService.USB_PERMISSION_GRANTED -> {debugString = "USB_PERMISSION_GRANTED"; mUsbState=msg.what}
-                UsbService.USB_PERMISSION_NOT_GRANTED -> {debugString = "USB_PERMISSION_NOT_GRANTED"; mUsbState=msg.what; usbBackgroundColor=Color.RED}
-                UsbService.USB_DISCONNECTED -> {debugString = "USB_DISCONNECTED"; mUsbState=msg.what; usbBackgroundColor=Color.LTGRAY}
-                UsbService.USB_NO_USB -> {debugString = "USB_NO_USB"; mUsbState=msg.what}
-                UsbService.USB_NOT_SUPPORTED -> {debugString = "USB_NOT_SUPPORTED"; mUsbState=msg.what; usbBackgroundColor=Color.RED}
-                UsbService.USB_DEVICE_NOT_WORKING -> {debugString = "USB_DEVICE_NOT_WORKING"; mUsbState=msg.what; usbBackgroundColor=Color.RED}
+                UsbService.USB_PERMISSION_GRANTED -> {
+                    debugString = "USB_PERMISSION_GRANTED"; mUsbState = msg.what
+                }
+                UsbService.USB_PERMISSION_NOT_GRANTED -> {
+                    debugString = "USB_PERMISSION_NOT_GRANTED"; mUsbState =
+                        msg.what; usbBackgroundColor = Color.RED
+                }
+                UsbService.USB_DISCONNECTED -> {
+                    debugString = "USB_DISCONNECTED"; mUsbState = msg.what; usbBackgroundColor =
+                        Color.LTGRAY
+                }
+                UsbService.USB_NO_USB -> {
+                    debugString = "USB_NO_USB"; mUsbState = msg.what
+                }
+                UsbService.USB_NOT_SUPPORTED -> {
+                    debugString = "USB_NOT_SUPPORTED"; mUsbState = msg.what; usbBackgroundColor =
+                        Color.RED
+                }
+                UsbService.USB_DEVICE_NOT_WORKING -> {
+                    debugString = "USB_DEVICE_NOT_WORKING"; mUsbState =
+                        msg.what; usbBackgroundColor = Color.RED
+                }
                 UsbService.USB_READY -> {
                     usbDeviceList()
                     debugString = "USB_READY"
-                    mUsbState=msg.what
+                    mUsbState = msg.what
                     usbBackgroundColor = resources.getColor(R.color.connectedGreen)
                 }
 
-                BtService.BT_STATE_NONE -> {debugString = "BT_STATE_NONE"
-                    mBtState=msg.what
-                    btBackgroundColor = resources.getColor( R.color.disconnectedRed)
+                BtService.BT_STATE_NONE -> {
+                    debugString = "BT_STATE_NONE"
+                    mBtState = msg.what
+                    btBackgroundColor = resources.getColor(R.color.disconnectedRed)
                     loading_bluetooth.visibility = View.INVISIBLE
                 }
                 BtService.BT_STATE_CONNECTING -> {
                     debugString = "BT_STATE_CONNECTING"
-                    mBtState=msg.what
+                    mBtState = msg.what
                     loading_bluetooth.visibility = View.VISIBLE
                 }
                 BtService.BT_STATE_LISTEN -> {
                     debugString = "BT_STATE_LISTEN"
-                    mBtState=msg.what
+                    mBtState = msg.what
                     loading_bluetooth.visibility = View.VISIBLE
                 }
                 BtService.BT_STATE_CONNECTED -> {
                     debugString = "BT_STATE_CONNECTED"
-                    mBtState=msg.what
+                    mBtState = msg.what
                     btBackgroundColor = resources.getColor(R.color.connectedGreen)
                     loading_bluetooth.visibility = View.INVISIBLE
                 }
@@ -114,7 +136,6 @@ class ConnectActivity : AppCompatActivity() {
             btService = null
         }
     }
-
     /**
      * OnCreate
      */
@@ -136,7 +157,6 @@ class ConnectActivity : AppCompatActivity() {
         //fill paired Bluetooth Devices in Spinner
         getPairedBtDevices(true)
         btn_bluetooth_refresh.setOnClickListener { getPairedBtDevices(false) }
-        openBt(BT_DEVICE)
 
         /**
          * init serial port
@@ -194,10 +214,11 @@ class ConnectActivity : AppCompatActivity() {
             Toast.makeText(mContext, "No bluetooth support available", Toast.LENGTH_SHORT).show()
             return
         }
-        if(!btAdapter.isEnabled) {
+        if (!btAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BLUETOOTH)
         }
+
         val btDevices: Set<BluetoothDevice> = btAdapter!!.bondedDevices
 
         val deviceList : ArrayList<BluetoothDevice?> = ArrayList()
@@ -222,36 +243,66 @@ class ConnectActivity : AppCompatActivity() {
                 }
                 Log.i("device", device.name)
             }
+
+            BT_DEVICE = deviceList[0]!!
+
         } else {
-            Toast.makeText(mContext, "no paired bluetooth devices found", Toast.LENGTH_SHORT).show()
+            //open dialog for bt settings if no device is paired
+            AlertDialog.Builder(mContext)
+                .setTitle("Pair bluetooth device")
+                .setMessage("You need to pair the amp via bluetooth first")
+                .setPositiveButton("Open BT settings") { _, _ ->
+                    //startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
+                    val bluetoothPicker = Intent("android.bluetooth.devicepicker.action.LAUNCH")
+                    startActivity(bluetoothPicker)
+                }
+                .setNegativeButton("Close the app") { _, _ ->
+                    finishAndRemoveTask()
+                }
+                .show()
         }
 
-        BT_DEVICE = deviceList[0]!!
-
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, deviceList.map{it!!.name})
+        val adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            deviceList.map { it!!.name })
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cb_bluetooth.adapter = adapter
         cb_bluetooth.prompt = "Select bluetooth device"
         var btInit = false
         cb_bluetooth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 if (!btInit) {
                     btInit = true
                     return
                 }
                 cb_bluetooth.setBackgroundColor(Color.LTGRAY)
-                Toast.makeText(mContext, adapter.getItem(position) + " selected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    mContext,
+                    adapter.getItem(position) + " selected",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 BT_DEVICE = deviceList[position]!!
 
-                with (mSharedPref.edit()) {
+                with(mSharedPref.edit()) {
                     putString(SETTING_BT_DEFAULT, deviceList[position]!!.address)
                     commit()
                 }
-                btService!!.connectToDevice(BT_DEVICE.address)
+                btService!!.connectToDevice(BT_DEVICE!!.address)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 return
             }
+        }
+
+        if (BT_DEVICE != null) {
+            openBt(BT_DEVICE!!)
         }
     }
 
@@ -276,13 +327,22 @@ class ConnectActivity : AppCompatActivity() {
             val extras:Bundle = Bundle()
             extras.putString("bluetooth_device", device.address)
             startBtService(BtService::class.java, btConnection, extras)
-            Log.i("BtService", "BluetoothService started with %s - %s".format(device.name, device.address))
+            Log.i(
+                "BtService", "BluetoothService started with %s - %s".format(
+                    device.name,
+                    device.address
+                )
+            )
         } else {
             Toast.makeText(mContext, "No bluetooth device selected", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun startBtService(service: Class<BtService>, serviceConnection: ServiceConnection, extras: Bundle?) {
+    private fun startBtService(
+        service: Class<BtService>,
+        serviceConnection: ServiceConnection,
+        extras: Bundle?
+    ) {
         val intent = Intent(this, service)
         if (!BtService.SERVICE_CONNECTED) {
 
@@ -311,7 +371,11 @@ class ConnectActivity : AppCompatActivity() {
         //registerReceiver(mUsbReceiver, filter)
     }
      */
-    private fun startUsbService(service: Class<UsbService>, serviceConnection: ServiceConnection, extras: Bundle?) {
+    private fun startUsbService(
+        service: Class<UsbService>,
+        serviceConnection: ServiceConnection,
+        extras: Bundle?
+    ) {
         if (!UsbService.SERVICE_CONNECTED) {
             //Pass settings to UsbService over comapnion object
             UsbService.baudRate = mSharedPref.getInt(R.id.cb_baud_rate.toString(), 9600)
@@ -349,7 +413,11 @@ class ConnectActivity : AppCompatActivity() {
                 }
             }
         }
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, usbList)
+        val adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            usbList
+        )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cb_usb.adapter = adapter
     }
