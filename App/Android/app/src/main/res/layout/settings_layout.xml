@@ -227,4 +227,15 @@
         android:background="@drawable/button_general"
         android:textColor="@color/buttonFill"
         />
+    <TextView
+        android:id="@+id/settings_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:text=""
+        android:textSize="6pt"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

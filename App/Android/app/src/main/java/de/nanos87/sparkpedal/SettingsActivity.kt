@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_layout)
         mContext = this
-
+        settings_version.text = "v" + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE
         val sharedPref = getSharedPreferences(SHARED_SETTINGS, Context.MODE_PRIVATE)
         val baudRate = sharedPref.getInt(R.id.cb_baud_rate.toString(), 9600)
         val dataBits = sharedPref.getInt(R.id.cb_data_bits.toString(), 8)
